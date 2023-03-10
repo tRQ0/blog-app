@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="col">
-    <a href='/post' class="btn btn-outline-primary">Go Back</a>   
-    <form action='/post/{{$post->id}}' method='POST' class="float-right">
+    <a href='/post' class="btn btn-outline-primary">Go Back</a>
+    <form action='/post/{{$post->id}}' method='POST' class='float-end'>
         @csrf
         @method('DELETE')
-        <div class="btn-group">
+        <div class="btn btn-group">
             <a href='/post/{{$post->id}}/edit' class="btn btn-primary">Edit Post</a>
             <input type='submit' value='Delete' class="btn btn-danger">
         </div>
