@@ -15,7 +15,7 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/', pagesController::class);
+Route::get('/',[PostsController::class, 'index']);
 
 Route::get('/services', [pagesController::class, 'services']);
 

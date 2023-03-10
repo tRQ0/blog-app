@@ -14,6 +14,8 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
     public function index(Request $request)
     {
         //
@@ -44,7 +46,7 @@ class PostsController extends Controller
         //
         $validated = $request->validated();
         $title = $validated['title'];
-        $body = $validated['body'];1
+        $body = $validated['body'];
         $curTime = date('Y-m-d H:i:s');
         
         $res = Post::insert([

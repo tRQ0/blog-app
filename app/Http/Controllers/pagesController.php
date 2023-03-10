@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 class pagesController extends Controller
 {
     //handle requests for the static pages
-    public function __invoke() {
-        return view('welcome');
-    }
 
     public function about() {
         return view('pages/about');
