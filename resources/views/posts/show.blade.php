@@ -3,14 +3,18 @@
 @section('content')
 <div class="col">
     <a href='/post' class="btn btn-outline-primary">Go Back</a>
-    <form action='/post/{{$post->id}}' method='POST' class='float-end'>
-        @csrf
-        @method('DELETE')
-        <div class="btn btn-group">
-            <a href='/post/{{$post->id}}/edit' class="btn btn-primary">Edit Post</a>
-            <input type='submit' value='Delete' class="btn btn-danger">
-        </div>
-    </form>
+    @if(!Auth::guest())
+        @if(Auth::user() -> id == $post -> user_id)
+        <form action='/post/{{$post->id}}' method='POST' class='float-end'>
+            @csrf
+            @method('DELETE')
+            <div class="btn btn-group">
+                <a href='/post/{{$post->id}}/edit' class="btn btn-primary">Edit Post</a>
+                <input type='submit' value='Delete' class="btn btn-danger">
+            </div>
+        </form>
+        @endif
+    @endif
     <hr>
     <h1>{{$post->title}}</h1>
     <h2>{{$post->body}}</h2>

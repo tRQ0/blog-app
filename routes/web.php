@@ -26,4 +26,3 @@ Route::resource('/post', PostsController::class);
 Auth::routes();
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
- 

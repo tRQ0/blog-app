@@ -6,16 +6,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-     
     public function index(Request $request)
     {
         //
@@ -67,14 +77,13 @@ class PostsController extends Controller
     public function show($id)
     {
         
-        $res = Post::find($id);
-        if(Post::find($id) !== null) {
-            $post = Post::find($id);
+        $post = Post::find($id);
+        if($post) {
             return view('posts/show')->with('post', $post);
         }
-        else {
-            return redirect('post') -> with('error', 'The post you are view does not exist!');
-        }
+        
+        return redirect('post') -> with('error', 'The post you are trying to view does not exist!');
+        
     }
 
     /**
@@ -87,7 +96,10 @@ class PostsController extends Controller
     {
         //return the edit view
         $post = Post::find($id);
-        return view('posts/edit')->with('post', $post);
+        if((Auth::id()) == $post -> user_id) {
+            return view('posts/edit')->with('post', $post);
+        }
+        return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('error', 'You are not the author of this post!');
     }
 
     /**
@@ -101,9 +113,14 @@ class PostsController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'body' => 'required|unique:posts',
-        ], $messages = [
-            'unique' => 'The body field was unchanged.',
+            'body' => 'required|unique:posts',                                                      //<- fix
+            // 'body' => [
+            //     'required', 
+            //     Rule::unique('body') -> where(function ($query) {
+            //         return $query -> where('id', $id);
+            //     })
+            // ]
+
         ]);
         $validated = $validator->validated();
         
@@ -124,9 +141,13 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $post = Post::find($id) -> delete();
-        return redirect('post') -> with('success', 'Post Removed  :)');
+        //check if post belong to user
+        $post = Post::find($id);
+        if((Auth::id()) == $post -> user_id) {
+            $post -> delete();
+            return redirect('post') -> with('success', 'Post Removed  :(');
+        }
 
+        return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('error', 'You are not the author of this post!');
     }
 }

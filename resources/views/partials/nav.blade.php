@@ -14,12 +14,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/post">Home <span class="sr-only">(current)</span></a>
                   </li>
+                  @if(!Auth::guest())
                   <li class="nav-item">
                     <a class="nav-link" href="/post/create">Create Post</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link disabled" href="#">Delete Post</a>
                   </li>
+                  @endif
               </ul>
 
               <!-- Right Side Of Navbar -->
