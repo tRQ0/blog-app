@@ -31,10 +31,10 @@
                                                 </tr>
                                                 @foreach($posts as $post)
                                                 <tr>
-                                                    <td>{{$post->title}}</td>
-                                                    <td><a href="post/{{$post -> id}}/edit" class="btn btn-success">Edit</a></td>
+                                                    <td><a href='{{route('post.show', $post->id)}}'>{{$post->title}}</a></td>
+                                                    <td><a href="{{route('post.edit', $post->id)}}" class="btn btn-success">Edit</a></td>
                                                     <td>
-                                                        <form action='/post/{{$post->id}}' method='POST'>
+                                                        <form action='{{route('post.destroy', $post->id)}}' method='POST'>
                                                             @csrf
                                                             @method('DELETE')
                                                             <input type='submit' value='Delete' class="btn btn-danger">

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <h1><a href='./post/{{$post->id}}'><u>{!!$post->title!!}</u></a></h1>
+                <h1><a href='{{route('post.show', $post->id)}}'><u>{!!$post->title!!}</u></a></h1>
                 <hr>
                 Author: {{$post->user->name}}
             </div>

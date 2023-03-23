@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pagesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\Dashboardcontroller;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::resource('/post', PostsController::class);
 Auth::routes();
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('posts.comment', CommentController::class)->shallow();

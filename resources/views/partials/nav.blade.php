@@ -12,7 +12,7 @@
               <!-- Left Side Of Navbar -->
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/post">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="/post">Home <span class="sr-only">(current) {{ (strpos(Route::currentRouteName(), 'post.show') == 0) ? 'active' : '' }}</span></a>
                   </li>
                   @if(!Auth::guest())
                   <li class="nav-item">

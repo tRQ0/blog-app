@@ -4,7 +4,7 @@
 <div class="col">
     <h1>Create Post</h1>
     <hr>
-    <form method='POST' action='/post'>
+    <form method='POST' action='{{route('post.store')}}'>
         <div class='form-group'>
             @csrf
             <label for='title' class='form-label'>Title</label>

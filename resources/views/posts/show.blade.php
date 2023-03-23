@@ -5,11 +5,11 @@
     <a href='/post' class="btn btn-outline-primary">Go Back</a>
     @if(!Auth::guest())
         @if(Auth::user() -> id == $post -> user_id)
-        <form action='/post/{{$post->id}}' method='POST' class='float-end'>
+        <form action='{{route('post.destroy', $post->id)}}' method='POST' class='float-end'>
             @csrf
             @method('DELETE')
             <div class="btn btn-group">
-                <a href='/post/{{$post->id}}/edit' class="btn btn-primary">Edit Post</a>
+                <a href='{{route('post.edit', $post->id)}}' class="btn btn-primary">Edit Post</a>
                 <input type='submit' value='Delete' class="btn btn-danger">
             </div>
         </form>
@@ -21,7 +21,10 @@
     <hr>
     <small>Created on - {{$post->created_at}}</small><br/>
     {!!(isset($post->updated_at)) ? 
-        "<small> Updated on - $post->updated_at<small>" : '' 
+        "<small> Updated on - $post->updated_at</small>" : '' 
     !!}
 </div>
+
+    @include('partials/comments')
+
 @endsection

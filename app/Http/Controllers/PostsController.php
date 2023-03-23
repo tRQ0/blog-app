@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use App\Models\Comment;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -60,12 +61,12 @@ class PostsController extends Controller
         $curTime = date('Y-m-d H:i:s');
         
         $res = Post::insert([
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth::id(),
             'title' => $title,
             'body' => $body,
             'created_at' => $curTime,
         ]);
-        return redirect('post') -> with('success', 'Post Created');
+        return redirect() -> action([PostsController::class, 'index']) -> with('success', 'Post Created');
     }
 
     /**
@@ -79,6 +80,7 @@ class PostsController extends Controller
         
         $post = Post::find($id);
         if($post) {
+            $comments = Comment::find($post->id);
             return view('posts/show')->with('post', $post);
         }
         
@@ -111,18 +113,22 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $validator = Validator::make($request->all(), [
-            'body' => 'required|unique:posts',                                                      //<- fix
-            // 'body' => [
-            //     'required', 
-            //     Rule::unique('body') -> where(function ($query) {
-            //         return $query -> where('id', $id);
-            //     })
-            // ]
+        // This is overly complex and verbose
+        // $validator = Validator::make($request->all(), [
+        //     'body' => 'bail|required|unique:posts',                                                      //<- fix
+        //     // 'body' => [
+        //     //     'required', 
+        //     //     Rule::unique('body') -> where(function ($query) {
+        //     //         return $query -> where('id', $id);
+        //     //     })
+        //     // ]
 
+        // ]);
+        // $validated = $validator->validated();
+
+        $validated = $request->validate([
+            'body' => 'bail|required|unique:posts',                                                      //<- fix
         ]);
-        $validated = $validator->validated();
         
         $body = $validated['body'];
         $curDate = date('Y-m-d H:i:s');
@@ -130,7 +136,7 @@ class PostsController extends Controller
             'body' => $body,
             'updated_at' => $curDate,
         ]);
-        return redirect("post/$id") -> with('success', 'Post updated!');
+        return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('success', 'Post updated!');
     }
         
     /**
@@ -145,7 +151,7 @@ class PostsController extends Controller
         $post = Post::find($id);
         if((Auth::id()) == $post -> user_id) {
             $post -> delete();
-            return redirect('post') -> with('success', 'Post Removed  :(');
+            return redirect() -> action([PostsController::class, 'index']) -> with('success', 'Post Removed  :(');
         }
 
         return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('error', 'You are not the author of this post!');

@@ -3,7 +3,7 @@
 @section('content')
 <div class="col">
     <h1>Edit Post: <small><u>{!!$post -> title!!}</u></small></h1>
-    <form id='loginform' method='POST' action='/post/{{$post -> id}}'>
+    <form id='loginform' method='POST' action='{{route('post.update', $post->id)}}'>
         <div class='form-group'>
             @csrf
             @method('PUT')
