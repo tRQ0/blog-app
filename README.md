@@ -6,6 +6,8 @@ A blog application made using Laravel with the following functionalities :
 - Post creation, updation, deletion
 - Commenting functionality
 
+currently live at: **<a href="http://postsapp.azurewebsites.net/post">here</a>**
+
 ## To-do
 
 - Update nav-bar
