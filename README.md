@@ -6,7 +6,7 @@ A blog application made using Laravel with the following functionalities :
 - Post creation, updation, deletion
 - Commenting functionality
 
-currently live at: **<a href="http://postsapp.azurewebsites.net/post" target="_blank">here</a>**
+currently live at: **[here](http://postsapp.azurewebsites.net/post)**
 
 ## To-do
 
@@ -17,3 +17,13 @@ currently live at: **<a href="http://postsapp.azurewebsites.net/post" target="_b
 - fix pagination
 - option to upload cover images
 - improve visual aesthetics
+
+<hr>
+
+<p>Use the following credentials if you don't want to create any:
+    
+User: `test@mail.com`
+    
+Pass: `12345678`
+    
+</p>
