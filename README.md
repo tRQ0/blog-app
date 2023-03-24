@@ -11,6 +11,7 @@ currently live at: **[here](http://postsapp.azurewebsites.net/post)**
 ## To-do
 
 - Update nav-bar
+- connect a mail service
 - Add user page
 - add permission based user control
 - create admin page
