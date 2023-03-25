@@ -15,7 +15,6 @@ currently live at: **[here](http://postsapp.azurewebsites.net/post)**
 - Add user page
 - add permission based user control
 - create admin page
-- fix pagination
 - option to upload cover images
 - improve visual aesthetics
 
