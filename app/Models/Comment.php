@@ -16,4 +16,7 @@ class Comment extends Model
     public function post() {
         return $this->belongsTo(Post::class);
     }
+    public function childComment() {
+        return $this->hasMany(Comment::class, 'parent_id', 'id');
+    }
 }

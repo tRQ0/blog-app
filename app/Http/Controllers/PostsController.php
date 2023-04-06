@@ -80,7 +80,7 @@ class PostsController extends Controller
         
         $post = Post::find($id);
         if($post) {
-            $comments = Comment::find($post->id);
+            // $comments = Comment::find($post->id);
             return view('posts/show')->with('post', $post);
         }
         

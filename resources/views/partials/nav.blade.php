@@ -18,9 +18,6 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/post/create">Create Post</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Delete Post</a>
-                  </li>
                   @endif
               </ul>
 
@@ -49,9 +46,9 @@
                               <a class="dropdown-item" href="{{ route('dashboard') }}">
                                   {{ __('User Home') }}
                               </a>
-                              <!-- <a class="dropdown-item" href="{{ route('post.index') }}">
-                                  {{-- __('Your Posts') --}}
-                              </a> -->
+                              <a class="dropdown-item" href="{{ route('post.index') }}">
+                                {{__('Your Posts')}}
+                              </a>
                               <a class="dropdown-item" href="{{ route('logout') }}"
                                   onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

@@ -57,6 +57,7 @@ class CommentController extends Controller
             'body' => $validated['commentBody'],
             'user_id' => Auth::id(),
             'post_id' => $postId,
+            'parent_id' => $request -> parentId,
             'created_at' => now(),
         ]);
         return redirect() -> action([PostsController::class, 'show'], ['post' => $postId]);
