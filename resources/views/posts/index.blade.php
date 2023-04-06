@@ -5,14 +5,15 @@
         @foreach ($posts as $post)
             <div class="card my-3">
                 <div class="card-header">
-                    <div class="data float-end">
-                        Created - {{ $post->created_at->diffForHumans() }}
-                    </div>
+
                 </div>
                 <div class="card-body">
                     <h1><a href='{{ route('post.show', $post->id) }}'><u>{!! $post->title !!}</u></a></h1>
                     <hr>
                     Author: {{ $post->user->name }}
+                    <div class="data float-end">
+                        Created - {{ $post->created_at->diffForHumans() }}
+                    </div>
                 </div>
             </div>
         @endforeach
