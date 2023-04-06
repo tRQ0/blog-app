@@ -25,8 +25,6 @@
     </div>
 
     {{-- Show post commenst --}}
-
-    {{-- @if (sizeof($post->comments) > 0) --}}
     <div class="card">
         <div class="card-header">
             <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#comment-box" aria-expanded="false"
@@ -41,7 +39,6 @@
                             {{ $comment->user->name }}
                             <div class="data float-end">
                                 {{ $comment->created_at->diffForHumans() }}
-
                                 {{-- open collapsed reply menu --}}
                                 @if (!Auth::guest())
                                     <button class="btn btn-secondary" data-bs-toggle="collapse"
@@ -50,9 +47,9 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="card-body">
                             {{ $comment->body }}
-
                             {{-- Child Comment --}}
                             @forelse($comment->childComment as $reply)
                                 <div class="card mt-3">
@@ -71,6 +68,7 @@
                         </div>
 
                         {{-- reply box --}}
+
                         {{-- <div class="row collapse p-2" id="reply"> --}}
                         <div class="card-footer collapse" id="reply_{{ $comment->id }}">
                             @if (!Auth::guest())
@@ -92,8 +90,8 @@
                 @empty
 
                     {{-- if no comment exist --}}
-
                     There are no comments on this post
+
                 @endforelse
             </div>
         </div>

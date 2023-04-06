@@ -16,10 +16,10 @@
                 </div>
             </div>
         @endforeach
-        {{-- <div class="row row-outline">
-            <div class="col d-flex justify-content-center"> --}}
-        {{ $posts->links('pagination::bootstrap-4') }}
-        {{-- </div> --}}
-        {{-- </div> --}}
+        <div class="row row-outline">
+            <div class="col d-flex justify-content-center">
+                {{ $posts->links('pagination::bootstrap-4') }}
+            </div>
+        </div>
     </div>
 @endsection
