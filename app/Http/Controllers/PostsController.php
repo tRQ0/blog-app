@@ -54,17 +54,30 @@ class PostsController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        //image handling
+        if($request->hasFile('coverImage')) {
+            $filename = 'usr_' . Auth::id(). '_' . time();
+            $extention = $request->file('coverImage')->getClientOriginalExtension();
+            $fileNameToStore = $filename  . '.' . $extention;
+            //upload image
+            $path = $request->file('coverImage')->storeAs('public\cover_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+
+0
         $validated = $request->validated();
-        $title = $validated['title'];
-        $body = $validated['body'];
-        $curTime = date('Y-m-d H:i:s');
+        // $title = $validated['title'];
+        // $body = $validated['body'];
+        // $curTime = date('Y-m-d H:i:s');
         
         $res = Post::insert([
             'user_id' => Auth::id(),
-            'title' => $title,
-            'body' => $body,
-            'created_at' => $curTime,
+            'title' => $validated['title'],
+            'body' => $validated['body'],
+            'cover_image' => $fileNameToStore,
+            'created_at' => now(),
         ]);
         return redirect() -> action([PostsController::class, 'index']) -> with('success', 'Post Created');
     }
@@ -84,7 +97,7 @@ class PostsController extends Controller
             return view('posts/show')->with('post', $post);
         }
         
-        return redirect('post') -> with('error', 'The post you are trying to view does not exist!');
+        return redirect()-> action([PostsController::class, 'index']) -> with('error', 'The post you are trying to view does not exist!');
         
     }
 
