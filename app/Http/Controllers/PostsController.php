@@ -142,13 +142,30 @@ class PostsController extends Controller
         // $validated = $validator->validated();
 
         $validated = $request->validate([
-            'body' => 'bail|required|unique:posts',                                                      //<- fix
+            'body' => 'bail|required|unique:posts',                                                     //<- fix
+            'newCoverImage' => 'image|nullable|max:1999',
         ]);
+
+        //check for new cover image
+        if($request->hasFile('newCoverImage')) {
+            //delete old cover image form storage
+            Storage::delete('public/cover_images/' . $request['oldCoverImage']);
+            //process new cover image
+            $filename = 'usr_' . Auth::id(). '_' . time();
+            $extention = $request->file('newCoverImage')->getClientOriginalExtension();
+            $fileNameToStore = $filename  . '.' . $extention;
+            //upload image
+            $path = $request->file('newCoverImage')->storeAs('public\cover_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = $request['oldCoverImage'];
+        }
+
         
         $body = $validated['body'];
         $curDate = date('Y-m-d H:i:s');
         $res = Post::where('id', $id) -> update([
             'body' => $body,
+            'cover_image' => $fileNameToStore,
             'updated_at' => $curDate,
         ]);
         return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('success', 'Post updated!');
@@ -167,7 +184,7 @@ class PostsController extends Controller
         if((Auth::id()) == $post -> user_id) {
             //Delete cover image from storage if post had one
             if(!is_null($post->cover_image)) {
-                $ret = Storage::delete('public/cover_images/' . $post->cover_image);
+                Storage::delete('public/cover_images/' . $post->cover_image);
             }
             //delete post from db
             $post -> delete();
