@@ -25,8 +25,21 @@ class StorePostRequest extends FormRequest
     {
         return [
             //
-            'title' => ['required', 'unique:posts,title'],
+            'title' => ['bail', 'required', 'unique:posts,title'],
             'body' => ['required'],
+            'coverImage' => 'image|nullable|max:1999',
         ];
     }
+
+    // /**
+    //  * Get custom attributes for validator errors.
+    //  *
+    //  * @return array
+    //  */
+    // public function attributes()
+    // {
+    //     return [
+    //         'cover_image' => 'coverImage',
+    //     ];
+    // }
 }
