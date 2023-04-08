@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Http\Requests\StorePostRequest;
+
+use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -62,11 +64,11 @@ class PostsController extends Controller
             //upload image
             $path = $request->file('coverImage')->storeAs('public\cover_images', $fileNameToStore);
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = null;
         }
 
 
-0
+
         $validated = $request->validated();
         // $title = $validated['title'];
         // $body = $validated['body'];
@@ -163,10 +165,14 @@ class PostsController extends Controller
         //check if post belong to user
         $post = Post::find($id);
         if((Auth::id()) == $post -> user_id) {
+            //Delete cover image from storage if post had one
+            if(!is_null($post->cover_image)) {
+                $ret = Storage::delete('public/cover_images/' . $post->cover_image);
+            }
+            //delete post from db
             $post -> delete();
             return redirect() -> action([PostsController::class, 'index']) -> with('success', 'Post Removed  :(');
-        }
-
+        } 
         return redirect() -> action([PostsController::class, 'show'], ['post' => $id]) -> with('error', 'You are not the author of this post!');
     }
 }
