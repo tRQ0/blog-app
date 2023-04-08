@@ -21,11 +21,14 @@
                     <h2>{{ $post->title }}</h2>
                 </div>
 
-                {{-- card body --}}
             </div>
+
+            {{-- card body --}}
             <div class="card-body">
                 {{ $post->body }}
             </div>
+
+            {{-- card-footer  --}}
             <div class="card-footer">
                 <div class="card-data">
                     <small>Created - {{ $post->created_at->diffForHumans() }}</small>
