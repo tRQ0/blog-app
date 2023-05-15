@@ -10,11 +10,9 @@ A blog application made using Laravel with the following functionalities :
 ## To-do
 
 - Update nav-bar
-<!-- - connect a mail service -->
 - Add user page
 - add permission based user control
 - create admin page
-<!-- - option to upload cover images -->
 - improve visual aesthetics
 
 <hr>
@@ -26,3 +24,6 @@ User: `test@mail.com`
 Pass: `12345678` -->
     
 </p>
+<!-- ## To-do -->
+<!-- - option to upload cover images -->
+<!-- - connect a mail service -->
