@@ -56,8 +56,6 @@ class PostsController extends Controller
         //fetch comment count
         $commentCount = Post::find($id)->comments()->count();
 
-        // var_dump(isset($post->get(0)['cover_image']));
-
         //return cover image link if exists
         $coverImageLink = [];
          if(isset($post->get(0)['cover_image'])) {
