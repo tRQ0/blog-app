@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\Api\V1\PostsController;
+use App\Http\Controllers\Api\V1\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('/', function () {
-    return Post::all();
+Route::prefix('v1')->group(function () {
+    Route::apiResource('/posts', PostsController::class);
+    Route::apiResource('posts.comments', CommentsController::class)->shallow();
 });

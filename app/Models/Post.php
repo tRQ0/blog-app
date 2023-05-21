@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $with = ['user'];
+
     use HasFactory;
 
     public function user() {
@@ -16,4 +18,5 @@ class Post extends Model
     public function comments() {
         return $this->hasMany(Comment::class)->whereNull('parent_id')->with('childComment');
     }
+
 }

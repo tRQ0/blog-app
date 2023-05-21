@@ -18,6 +18,7 @@ class PostFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'title' => $this->faker->sentence(5),
             'body' => $this->faker->text(),
+            'cover_image' => null,
         ];
     }
 }
