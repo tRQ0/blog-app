@@ -6,25 +6,24 @@ A blog application made using Laravel with the following functionalities :
 - Post creation, updation, deletion
 - Commenting functionality
 
-currently live at: **[here](http://postsapp.azurewebsites.net/post)**
 
 ## To-do
 
 - Update nav-bar
-- connect a mail service
 - Add user page
 - add permission based user control
 - create admin page
-- fix pagination
-- option to upload cover images
 - improve visual aesthetics
 
 <hr>
 
-<p>Use the following credentials if you don't want to create any:
+<!-- <p>Use the following credentials if you don't want to create any:
     
 User: `test@mail.com`
     
-Pass: `12345678`
+Pass: `12345678` -->
     
 </p>
+<!-- ## To-do -->
+<!-- - option to upload cover images -->
+<!-- - connect a mail service -->
